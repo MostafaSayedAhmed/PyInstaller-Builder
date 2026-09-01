@@ -25,6 +25,7 @@ It allows the user to configure:
 After configuration, the application launches PyInstaller as an external process using Qt's `QProcess`.
 
 The PyInstaller output is captured in real time and displayed inside the application's log interface.
+<img width="500" height="544" alt="image" src="https://github.com/user-attachments/assets/9daefd49-4ba4-42ce-9417-b7da9fd2e53e" />
 
 ---
 
@@ -72,11 +73,13 @@ The application generates:
 
 This allows applications containing resources such as:
 
+```Plaintext
 resources/
 ├── main.ui
 ├── icons/
 ├── images/
 └── other files
+```
 
 to package those resources with the executable.
 
@@ -92,12 +95,13 @@ Equivalent option:
 
 Supported image formats include:
 
-PNG
-JPG
-JPEG
-BMP
-GIF
-SVG
+- PNG
+- JPG
+- JPEG
+- BMP
+- GIF
+- SVG
+- ICO
 
 For Windows executable icons, PyInstaller may require an appropriate .ico file depending on the target configuration.
 
@@ -134,12 +138,14 @@ One Directory
 Produces an application directory containing the executable and its dependencies.
 
 Example:
-
+```Plaintext
 dist/
 └── MyApplication/
     ├── MyApplication.exe
     ├── Python libraries
     └── application resources
+```
+
 One File
 ```bash
 -F
@@ -148,9 +154,10 @@ One File
 Produces a single executable.
 
 Example:
-
+```Plaintext
 dist/
 └── MyApplication.exe
+```
 
 ### 📊 Real-Time Build Monitoring
 
@@ -158,12 +165,13 @@ One of the main features of this project is real-time PyInstaller output monitor
 
 Instead of using:
 
+```Python
 subprocess.run(...)
-
+```
 the application uses Qt's:
-
+```Python
 QProcess
-
+```
 This allows PyInstaller to run asynchronously without blocking the Qt event loop.
 
 The GUI remains responsive while PyInstaller is running.
@@ -178,21 +186,22 @@ and displays the output in the application's log table.
 
 The application provides a dedicated log table containing:
 
-Time	 | Message |	Type
-12:30:01 |	Checking Analysis |	INFO
-12:30:02 |	Running Analysis |	INFO
-12:30:05 |	Processing standard module |	INFO
-12:30:10 |	Building PKG |	INFO
-12:30:15 |	Building EXE |	INFO
-12:30:20 |	Build completed successfully |	FINISH
+| Time	   | Message                         |	Type   |
+|----------|---------------------------------|---------|
+| 12:30:01 |	Checking Analysis            |	INFO   |
+| 12:30:02 |	Running Analysis             |	INFO   |
+| 12:30:05 |	Processing standard module   |	INFO   |
+| 12:30:10 |	Building PKG                 |	INFO   |
+| 12:30:15 |	Building EXE                 |	INFO   |
+| 12:30:20 |	Build completed successfully |	FINISH |
 
 The log system also distinguishes between:
 
-INFO
-WARNING
-ERROR
-FINISH
-UNKNOWN
+- INFO
+- WARNING
+- ERROR
+- FINISH
+- UNKNOWN
 
 This makes long PyInstaller builds easier to understand and monitor.
 
@@ -203,6 +212,8 @@ The application provides a graphical progress bar representing the approximate p
 PyInstaller does not expose a simple universal percentage-complete API, so the application estimates progress by detecting important PyInstaller stages.
 
 The current stages include:
+
+```Plaintext
 
 Start
   │
@@ -217,6 +228,7 @@ Start
   ├── Building EXE             → ~90%
   │
   └── Build Complete           → 100%
+```
 
 The progress indicator should therefore be considered an estimated build progress, rather than an exact measurement.
 
@@ -236,18 +248,20 @@ After a successful build, the application allows the user to open the generated 
 
 The application detects the operating system and uses the appropriate command:
 
-Windows
-explorer
-macOS
-open
-Linux
-xdg-open
+- Windows
+- explorer
+- macOS
+- open
+- Linux
+- xdg-open
 
 This provides a platform-aware way of accessing the generated application.
 
 ### 🏗️ Project Architecture
 
 The project is intentionally designed around a relatively simple architecture.
+
+```Plaintext
 
 User
  │
@@ -282,6 +296,7 @@ Log Processing
  │
  ▼
 Progress / Build Result
+```
 
 ### 🛠️ Technologies Used
 Python
@@ -290,36 +305,40 @@ The application is written in Python.
 
 Python is responsible for:
 
-Application logic
-File validation
-Path management
-Process configuration
-Build argument generation
-Output processing
-Platform detection
-PyQt5
+- Application logic
+- File validation
+- Path management
+- Process configuration
+- Build argument generation
+- Output processing
+- Platform detection
+- PyQt5
 
 The graphical interface is implemented using PyQt5.
 
 Important components include:
 
-QMainWindow
-QMessageBox
-QFileDialog
-QTableWidget
-QTableWidgetItem
-QProcess
-Qt Designer
+- QMainWindow
+- QMessageBox
+- QFileDialog
+- QTableWidget
+- QTableWidgetItem
+- QProcess
+- Qt Designer
 
 The graphical interface is designed using Qt Designer.
 
 The UI is stored separately as:
 
+```bash
 resources/main.ui
+```
 
 The interface is loaded at runtime using:
 
+```python
 uic.loadUi()
+```
 
 This keeps the GUI design separated from the Python application logic.
 
@@ -333,6 +352,7 @@ Instead, it acts as a graphical frontend that constructs and executes PyInstalle
 
 For example, the GUI can generate an equivalent command such as:
 
+```bash
 pyinstaller -y --clean main.py \
     --distpath ./dist \
     --workpath ./build \
@@ -341,11 +361,13 @@ pyinstaller -y --clean main.py \
     -D \
     -n MyApplication \
     --icon application.ico
+```
     
 ### 📁 Project Structure
 
 The repository is organized approximately as follows:
 
+```Plaintext
 PyInstaller-GUI/
 │
 ├── main.py
@@ -370,6 +392,7 @@ PyInstaller-GUI/
 │
 └── screenshots/
     └── ...
+```
 
 dist/, build/, and generated installer files may be excluded from version control depending on the project's release strategy.
 
@@ -377,51 +400,66 @@ dist/, build/, and generated installer files may be excluded from version contro
 
 The project requires:
 
-Python 3.x
-PyQt5
-PyInstaller
+- Python 3.x
+- PyQt5
+- PyInstaller
 
 Install the Python dependencies using:
 
+```bash
 pip install -r requirements.txt
+```
 
 A typical requirements.txt contains:
 
-PyQt5
-PyInstaller
+- PyQt5
+- PyInstaller
 
 ### 🚀 Running the Application
 
 Clone the repository:
 
+```bash
 git clone <repository-url>
+```
 
 Enter the project directory:
 
+```bash
 cd PyInstaller-GUI
+```
 
 Create a virtual environment:
 
+```bash
 python -m venv venv
-
+```
 Activate it on Windows:
 
+```bash
 venv\Scripts\activate
-
+```
 Activate it on Linux/macOS:
 
+```bash
 source venv/bin/activate
+```
 
 Install dependencies:
 
+```bash
 pip install -r requirements.txt
+```
 
 Run the application:
 
+```bash
 python main.py
+```
 
 ### 🖥️ Using the Application
-Step 1 — Select Python Entry Point
+
+#### Step 1 — Select Python Entry Point
 
 Click:
 
@@ -431,43 +469,60 @@ and select the Python file that should be packaged.
 
 For example:
 
+```bash
 C:\Projects\MyApplication\main.py
-Step 2 — Select Distribution Directory
+```
+
+#### Step 2 — Select Distribution Directory
 
 Select the directory where the final PyInstaller output should be generated.
 
 Example:
 
+```bash
 C:\Projects\MyApplication\dist
-Step 3 — Select Build Directory
+```
+
+#### Step 3 — Select Build Directory
 
 Select the working directory used during the PyInstaller build.
 
 Example:
 
+```bash
 C:\Projects\MyApplication\build
-Step 4 — Select Resources
+```
+
+#### Step 4 — Select Resources
 
 Select the application's resources directory.
 
 For example:
 
+```Plaintext
 resources/
 ├── main.ui
 ├── images/
 └── icons/
+```
 
 The GUI automatically passes this directory to PyInstaller using:
 
+```bash
 --add-data
-Step 5 — Select Application Icon
+```
+
+#### Step 5 — Select Application Icon
 
 Optionally select an application icon.
 
 Example:
 
+```bash
 resources/application.ico
-Step 6 — Configure Build Options
+```
+
+#### Step 6 — Configure Build Options
 
 Choose:
 
@@ -490,7 +545,8 @@ You can also specify the generated application's name.
 For example:
 
 MyApplication
-Step 7 — Start Build
+
+#### Step 7 — Start Build
 
 Click the build/install button.
 
@@ -500,13 +556,13 @@ A confirmation dialog displays the selected settings.
 
 After confirmation, PyInstaller starts asynchronously.
 
-Step 8 — Monitor the Build
+#### Step 8 — Monitor the Build
 
 The log table displays PyInstaller's output while the process is running.
 
 The progress bar provides an estimated indication of build progress.
 
-Step 9 — Build Completion
+#### Step 9 — Build Completion
 
 After PyInstaller exits successfully:
 
@@ -514,10 +570,10 @@ Build completed successfully.
 
 The application:
 
-Sets progress to 100%
-Displays the final build message
-Enables the output-folder button
-Allows the user to open the generated directory
+1. Sets progress to 100%
+2. Displays the final build message
+3. Enables the output-folder button
+4. Allows the user to open the generated directory
 
 ### 🔄 QProcess Workflow
 
@@ -525,6 +581,7 @@ The application uses QProcess instead of blocking subprocess calls.
 
 The basic workflow is:
 
+```Python
 self.processInstall = QProcess(self)
 
 self.processInstall.setProcessChannelMode(
@@ -543,17 +600,21 @@ self.processInstall.start(
     "pyinstaller",
     arguments
 )
+```
 
 This is important because a GUI application must not block the Qt event loop during a long-running operation.
 
 A blocking approach such as:
 
+```Python
 subprocess.run(...)
+```
 
 would prevent the GUI from processing events until PyInstaller finishes.
 
 Using QProcess allows:
 
+```Plaintext
 GUI
  │
  ├─────────────── remains responsive
@@ -563,6 +624,7 @@ QProcess
  │
  ▼
 PyInstaller
+```
 
 ### 🔐 Input Validation
 
@@ -570,10 +632,10 @@ Before starting the build, the application validates the required paths.
 
 The following must exist:
 
-Python Entry Point
-Distribution Directory
-Build Directory
-Resources Directory
+- Python Entry Point
+- Distribution Directory
+- Build Directory
+- Resources Directory
 
 If any required path is invalid, the build is not started.
 
@@ -592,11 +654,15 @@ This prevents many avoidable PyInstaller errors.
 
 The application uses:
 
+```bash
 -y
+```
 
 and:
 
+```bash
 --clean
+```
 
 The -y option automatically confirms replacement of existing output where applicable.
 
@@ -624,10 +690,10 @@ PyInstaller Output Changes
 
 The application detects certain messages such as:
 
-Checking Analysis
-Running Analysis
-Building PKG
-Building EXE
+- Checking Analysis
+- Running Analysis
+- Building PKG
+- Building EXE
 
 If PyInstaller changes its output format in a future release, some progress-stage detection may need to be updated.
 
@@ -637,7 +703,9 @@ PyInstaller must be installed and accessible from the environment used to run th
 
 For example:
 
+```bash
 pyinstaller --version
+```
 
 should return a valid version.
 
@@ -659,23 +727,24 @@ Separate builds should therefore be produced for different target platforms.
 
 Before releasing the application, the following cases should be tested.
 
-Test	Expected Result
-Valid Python file	Build starts
-Missing Python file	Warning displayed
-Invalid distribution directory	Build prevented
-Invalid build directory	Build prevented
-Invalid resources directory	Build prevented
-No icon selected	Build proceeds using default icon
-Custom icon selected	Icon passed to PyInstaller
-One-file mode	Single executable generated
-One-directory mode	Application directory generated
-Console mode	Console-enabled executable generated
-Windowed mode	GUI executable generated
-Successful build	Progress reaches 100%
-PyInstaller error	Error dialog displayed
-Cancel during build	Process terminated
-Start second build while running	Build prevented
-Open output folder	Output directory opened
+|             Test                  |	Expected Result                          |
+|-----------------------------------|--------------------------------------------| 
+| Valid Python file	                |  Build starts                              |
+| Missing Python file	            |  Warning displayed                         |
+| Invalid distribution directory    |  Build prevented                           |
+| Invalid build directory	        |  Build prevented                           |
+| Invalid resources directory	    |  Build prevented                           |
+| No icon selected	                |  Build proceeds using default icon         |
+| Custom icon selected	            |  Icon passed to PyInstaller                | 
+| One-file mode	                    |  Single executable generated               |
+| One-directory mode	            |  Application directory generated           | 
+| Console mode	                    |  Console-enabled executable generated      | 
+| Windowed mode	                    |  GUI executable generated                  |
+| Successful build	                |  Progress reaches 100%                     |
+| PyInstaller error	                |  Error dialog displayed                    |
+| Cancel during build	            |  Process terminated                        |
+| Start second build while running  |	 Build prevented                         | 
+| Open output folder	            |  Output directory opened                   | 
 
 ### 🐛 Error Handling
 
@@ -683,11 +752,11 @@ The application attempts to handle common errors through GUI dialogs.
 
 Examples include:
 
-UI loading failure
-Invalid configuration
-PyInstaller build failure
-Build cancellation
-Unexpected process termination
+- UI loading failure
+- Invalid configuration
+- PyInstaller build failure
+- Build cancellation
+- Unexpected process termination
 
 Errors generated by PyInstaller are captured and displayed to the user.
 
@@ -695,42 +764,42 @@ Errors generated by PyInstaller are captured and displayed to the user.
 
 The main goals of this project are:
 
-Provide a simple graphical interface for PyInstaller.
-Remove the need to manually construct long PyInstaller commands.
-Make common packaging options easily accessible.
-Provide real-time build logs.
-Keep the GUI responsive during long builds.
-Provide visual feedback through a progress bar.
-Make the packaging workflow easier for users who are less comfortable with command-line tools.
+- Provide a simple graphical interface for PyInstaller.
+- Remove the need to manually construct long PyInstaller commands.
+- Make common packaging options easily accessible.
+- Provide real-time build logs.
+- Keep the GUI responsive during long builds.
+- Provide visual feedback through a progress bar.
+- Make the packaging workflow easier for users who are less comfortable with command-line tools.
 
 ### 🧠 What I Learned
 
 This project provided practical experience with several important software-development concepts.
 
-Python
-File and directory handling
-pathlib
-Operating-system interaction
-Exception handling
-Process execution
-Application state management
-PyQt5
-Signals and slots
-QProcess
-QFileDialog
-QMessageBox
-QTableWidget
-GUI state management
-Asynchronous process handling
-Software Development
-Separating GUI and application logic
-Input validation
-Error handling
-User confirmation workflows
-Long-running process management
-Cross-platform considerations
-Application packaging
-Release preparation
+- Python
+- File and directory handling
+- pathlib
+- Operating-system interaction
+- Exception handling
+- Process execution
+- Application state management
+- PyQt5
+- Signals and slots
+- QProcess
+- QFileDialog
+- QMessageBox
+- QTableWidget
+- GUI state management
+- Asynchronous process handling
+- Software Development
+- Separating GUI and application logic
+- Input validation
+- Error handling
+- User confirmation workflows
+- Long-running process management
+- Cross-platform considerations
+- Application packaging
+- Release preparation
 
 ### 🔮 Future Improvements
 
@@ -738,26 +807,26 @@ The current version focuses on the core PyInstaller workflow.
 
 Possible future versions could introduce:
 
-.spec file support
-Custom PyInstaller command options
-Hidden-import management
-Multiple --add-data entries
-Multiple --add-binary entries
-Recursive resource selection
-Environment/interpreter selection
-Python virtual-environment detection
-PyInstaller version detection
-Build history
-Saved build profiles
-Configuration files
-Dark/light themes
-Better progress estimation
-Build presets
-Drag-and-drop file selection
-Custom output naming
-Advanced PyInstaller options
-Automatic dependency detection
-Build logs exported to files
+- .spec file support
+- Custom PyInstaller command options
+- Hidden-import management
+- Multiple --add-data entries
+- Multiple --add-binary entries
+- Recursive resource selection
+- Environment/interpreter selection
+- Python virtual-environment detection
+- PyInstaller version detection
+- Build history
+- Saved build profiles
+- Configuration files
+- Dark/light themes
+- Better progress estimation
+- Build presets
+- Drag-and-drop file selection
+- Custom output naming
+- Advanced PyInstaller options
+- Automatic dependency detection
+- Build logs exported to files
 
 These features can be added gradually without changing the core concept of the application.
 
@@ -782,12 +851,12 @@ Software Application Development & Automation
 
 This project was developed as part of a practical portfolio focused on:
 
-Python
-Desktop Application Development
-PyQt5
-Automation
-Software Packaging
-Application Deployment
+- Python
+- Desktop Application Development
+- PyQt5
+- Automation
+- Software Packaging
+- Application Deployment
 
 ### ⭐ Contributing
 
@@ -807,16 +876,16 @@ Screenshots of the application are placed inside:
 screenshots/
 
 For example:
-
+```Plaintext
 screenshots/
 ├── main-interface.png
 ├── build-process.png
 └── build-complete.png
-
+```
 
 ### 📚 References
-PyInstaller Documentation
-PyQt5 Documentation
-Qt QProcess Documentation
-Python Documentation
-Qt Designer Documentation
+- [PyInstaller Documentation](https://pyinstaller.org)
+- [PyQt5 Documentation](https://riverbankcomputing.com)
+- [Qt QProcess Documentation](https://qt.io)
+- [Python Documentation](https://python.org)
+- [Qt Designer Documentation](https://qt.io)
