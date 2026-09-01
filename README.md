@@ -407,6 +407,16 @@ The project requires:
 Install the Python dependencies using:
 
 ```bash
+# 1. Activate your virtual environment
+source venv/bin/activate
+```
+```bash
+# 2. Upgrade the core tooling first
+python -m pip install --upgrade pip setuptools wheel
+```
+
+```bash
+# 3. Install your project dependencies
 pip install -r requirements.txt
 ```
 
