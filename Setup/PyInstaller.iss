@@ -2,11 +2,11 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 ; Non-commercial use only
 
-#define MyAppName "PyInstaller"
+#define MyAppName "PyInstaller Application"
 #define MyAppVersion "1.0.0"
-#define MyAppPublisher "Mostafa Sayed"
+#define MyAppPublisher "Mostafa Sayed Ahmed"
 #define MyAppURL "https://github.com/MostafaSayedAhmed/PyInstaller-Builder/tree/main"
-#define MyAppExeName "PyInstaller.exe"
+#define MyAppExeName "PyInstaller Application.exe"
 #define MyAppAssocName MyAppName + " File"
 #define MyAppAssocExt ".myp"
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
@@ -14,7 +14,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{A62D9DE4-474F-4F4C-A89F-8ABDBF522177}
+AppId={{06EBDECA-9824-43FB-8232-326DC6B8C3BE}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -35,11 +35,12 @@ ArchitecturesInstallIn64BitMode=x64compatible
 ChangesAssociations=yes
 DisableProgramGroupPage=yes
 LicenseFile=G:\Post Graduation\Learning\Python Automation\Installer Application\LICENSE.txt
+InfoBeforeFile=G:\Post Graduation\Learning\Python Automation\Installer Application\PyInstaller-Builder\requriements.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
-OutputDir=G:\Post Graduation\Learning\Python Automation\Installer Application\Output
+OutputDir=G:\Post Graduation\Learning\Python Automation\Installer Application\PyInstaller-Builder\Setup
 OutputBaseFilename=PyInstaller Setup
-SetupIconFile=G:\Post Graduation\Learning\Python Automation\Installer Application\app_icon.ico
+SetupIconFile=G:\Post Graduation\Learning\Python Automation\Installer Application\PyInstaller-Builder\app_icon.ico
 SolidCompression=yes
 WizardStyle=modern dynamic
 
@@ -52,7 +53,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "G:\Post Graduation\Learning\Python Automation\Installer Application\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "G:\Post Graduation\Learning\Python Automation\Installer Application\dist\PyInstaller\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
