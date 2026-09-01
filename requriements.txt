@@ -1,0 +1,8 @@
+# Core GUI Framework
+PyQt5>=5.15.9
+
+# PyQt5 UI Compiler Utilities (Optional: useful during development for .ui files)
+pyqt5-tools>=5.15.4
+
+# Application Packaging Engine
+PyInstaller>=5.13.0
