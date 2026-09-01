@@ -420,7 +420,7 @@ A typical requirements.txt contains:
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/MostafaSayedAhmed/PyInstaller-Builder.git
 ```
 
 Enter the project directory:
