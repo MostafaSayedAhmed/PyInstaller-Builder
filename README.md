@@ -879,8 +879,10 @@ For example:
 ```Plaintext
 screenshots/
 ├── main-interface.png
-├── build-process.png
-└── build-complete.png
+├── Confirm-Build.png
+├── Build-Process.png
+└── Build-Complete.png
+
 ```
 
 ### 📚 References
