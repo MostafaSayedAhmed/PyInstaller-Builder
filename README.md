@@ -25,7 +25,7 @@ It allows the user to configure:
 After configuration, the application launches PyInstaller as an external process using Qt's `QProcess`.
 
 The PyInstaller output is captured in real time and displayed inside the application's log interface.
-<img width="817" height="889" alt="image" src="https://github.com/user-attachments/assets/9daefd49-4ba4-42ce-9417-b7da9fd2e53e" />
+<img width="500" height="544" alt="image" src="https://github.com/user-attachments/assets/9daefd49-4ba4-42ce-9417-b7da9fd2e53e" />
 
 ---
 
